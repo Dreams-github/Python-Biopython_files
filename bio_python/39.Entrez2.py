@@ -1,0 +1,9 @@
+from Bio import Entrez
+
+Entrez.email="swapna.2010aedhu@gmail.com"
+
+data=Entrez.einfo(db="nucleotide")
+
+info=Entrez.read(data)
+
+print(info)
