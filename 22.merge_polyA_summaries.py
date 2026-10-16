@@ -3,7 +3,7 @@ from pathlib import Path
 import pandas as pd
 
 # ---------------- USER SETTINGS ----------------
-ROOT_DIR = Path(r"G:\Platform Innovation - Applied Biology\Staff\swapna\MD")
+ROOT_DIR = Path(r"give your path")
 OUT_FILE = ROOT_DIR / "polyA_summary_ALL_runs.csv"
 
 FINAL_COLS = [
@@ -21,7 +21,7 @@ FINAL_COLS = [
 def get_run_id(csv_path: Path) -> str:
     """
     Extract run folder name, e.g.
-    MD/250821_M04095_0651_000000000-GT52R/flank_output_xxxx/polyA_summary.csv
+    MD/run folder/flank_output_xxxx/polyA_summary.csv
     """
     for parent in csv_path.parents:
         if parent.parent == ROOT_DIR:
