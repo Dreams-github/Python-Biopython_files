@@ -30,7 +30,7 @@ from Bio import Align
 
 # ----------------- USER SETTINGS -----------------
 
-ROOT_DIR = Path(r"G:\Platform Innovation - Applied Biology\Staff\swapna\Moderna_polyA_NGS_Assessment\MD")
+ROOT_DIR = Path(r"give your path")
 OUTPUT_DIR = ROOT_DIR / "identified_refseq_regions"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -66,7 +66,7 @@ def get_run_id(fastq_path: Path) -> str:
     """
     Extract run folder name.
     Example:
-    MD/250821_M04095_0651_000000000-GT52R/Fastq files/*.fastq.gz
+    --/*.fastq.gz
     """
     for parent in fastq_path.parents:
         if parent.parent == ROOT_DIR:
