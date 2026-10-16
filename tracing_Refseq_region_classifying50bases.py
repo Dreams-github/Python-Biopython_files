@@ -48,7 +48,7 @@ from prompt_toolkit.application import get_app_session
 # -----------------USER SETTINGS-------------
 
 # defining input and output paths
-ROOT_DIR = Path(r"G:\Platform Innovation - Applied Biology\Staff\swapna\Moderna_polyA_NGS_Assessment\MD")
+ROOT_DIR = Path(r"path")
 OUTPUT_DIR = ROOT_DIR / "identified_refseq_regions"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -84,7 +84,7 @@ TEST_READ_LIMIT = 10 #keep 10 for testing, set to None for full run
 def get_run_id(fastq_path: Path) -> str:
     """
     Extract run folder name, e.g.
-    MD/250821_M04095_0651_000000000-GT52R/Fastq files/*.fastq.gz
+   --/Fastq files/*.fastq.gz
     """
     for parent in fastq_path.parents:  # climbs up directory tree - .parents all parent directories
         if parent.parent == ROOT_DIR:  # finds run-level folder
