@@ -29,7 +29,7 @@ from Bio import Align
 # Placeholder when a flank sequence is absent
 NA_STR = " no flank "
 
-RUN_DIR       = r"G:\Platform Innovation - Applied Biology\Staff\swapna\MD\250821_M04095_0651_000000000-GT52R"
+RUN_DIR       = r"provide the path"
 FASTQ_SUBDIR  = "Fastq files"
 
 # Reference CSV (no header) sitting inside "Fastq files"
