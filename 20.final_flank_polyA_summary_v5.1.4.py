@@ -277,7 +277,7 @@ def main():
                 "polyA_length","hasFlanking",
                 "isReferenceUp","isReferenceDn",
                 "avgQMeanUp","avgQMeanDn",
-                "simUp","simDn",
+                "simUp","sin",
                 "alnScoreUp","alnScoreDn",
                 "coverUp","coverDn",
                 "polyASeq","flankUpSeq","flankDnSeq"
