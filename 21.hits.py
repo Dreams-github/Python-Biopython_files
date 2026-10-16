@@ -1,5 +1,5 @@
 
-#This code is fining only the Moderna NGS runs that containing the polyA stretch =75
+#This code is fining only the NGS runs that containing the polyA stretch =75
 import os
 import csv
 import re
@@ -19,7 +19,7 @@ RUN_PREFIXES = ("25", "26", "2025", "2026")
 FASTQ_DIRNAME = "FASTQ Files"
 
 # Output report file
-OUTPUT_CSV = "Moderna_hits3.csv"
+OUTPUT_CSV = "M_hits3.csv"
 
 # Column indices for headerless manifest.csv (0-based):
 #   A=0, B=1, C=2, D=3, E=4, F=5, ...
@@ -51,25 +51,25 @@ IUPAC_DNA = "ACGTRYSWKMBDHVN"
 TRIM_TRAILING_NON_IUPAC_RE = re.compile(rf"[^{IUPAC_DNA}]+$", re.IGNORECASE)
 
 
-# --- Moderna filtering ---
+# --- M filtering ---
 
-# Patterns we consider "Moderna" (case-insensitive).
-# Includes explicit 'moderna', product aliases, and common program tags starting with "mod".
-MODERNA_PATTERNS = [
-    r"moderna",                # substring anywhere (e.g., ModernaPilot, SRT_ModernaA1)
+# Patterns we consider "M" (case-insensitive).
+# Includes explicit 'M', product aliases, and common program tags starting with "mod".
+M_PATTERNS = [
+    r"M",                # substring anywhere (e.g., MPilot, SRT_MA1)
     r"mrna[-_ ]?1273",         # vaccine code
     r"spikevax",               # brand
     r"(^|[^a-z])mod[a-z]+",    # mod* program tags: modvec, modrework, modsdm, modpilot, etc.
 ]
-MODERNA_REGEXES = [re.compile(p, re.IGNORECASE) for p in MODERNA_PATTERNS]
+M_REGEXES = [re.compile(p, re.IGNORECASE) for p in M_PATTERNS]
 
-def is_moderna(primary: str, secondary: str) -> tuple[bool, str]:
+def is_M(primary: str, secondary: str) -> tuple[bool, str]:
     """
     Return (True, matched_pattern) if either PrimaryName or SecondaryName
-    indicates 'Moderna' by any of MODERNA_REGEXES; otherwise (False, "").
+    indicates 'M' by any of M_REGEXES; otherwise (False, "").
     """
     text = f"{str(primary)} {str(secondary)}"
-    for rx in MODERNA_REGEXES:
+    for rx in M_REGEXES:
         if rx.search(text):
             return True, rx.pattern
     return False, ""
@@ -180,13 +180,13 @@ def find_all_poly_runs(seq: str) -> List[Tuple[str, int, int, int]]:
     hits.sort(key=lambda t: t[1])
     return hits
 
-def primary_matches_moderna(primary: str) -> Tuple[bool, str]:
+def primary_matches_M(primary: str) -> Tuple[bool, str]:
     """
-    Returns (is_moderna, matched_pattern) where matched_pattern is the regex pattern string that matched.
+    Returns (is_M, matched_pattern) where matched_pattern is the regex pattern string that matched.
     """
     if not primary:
         return False, ""
-    for rx in MODERNA_REGEXES:
+    for rx in M_REGEXES:
         if rx.search(primary):
             return True, rx.pattern
     return False, ""
@@ -214,7 +214,7 @@ def main():
     print("Column mapping (0-based): WellPosition=A(0) [LOCKED], Primary=D(3), Secondary=E(4), Reference=F(5)")
     print(f"Homopolymer detection: poly-A ANYWHERE with length ≥ {POLY_MIN}"
           f"{' (and poly-T too)' if INCLUDE_T_RUNS else ''}")
-    print("Moderna aliases (PrimaryName):", ", ".join(MODERNA_PATTERNS))
+    print("M aliases (PrimaryName):", ", ".join(M_PATTERNS))
     print(f"IUPAC allowed set for trailing trim: {IUPAC_DNA}")
 
     root = Path(ROOT)
@@ -267,9 +267,9 @@ def main():
 
                     # Extract fields (headerless)
                     primary = row[PRIMARY_COL].strip()   if len(row) > PRIMARY_COL   else ""
-                    is_mod, matched_pat = primary_matches_moderna(primary)
+                    is_mod, matched_pat = primary_matches_M(primary)
                     if not is_mod:
-                        continue  # <-- Only process Moderna rows
+                        continue  # <-- Only process M rows
 
                     ref_raw = row[REF_COL].strip() if len(row) > REF_COL else ""
                     ref = clean_reference(ref_raw)
