@@ -37,7 +37,7 @@ REF_CSV_BASENAME = "_14417-SYB.csv"
 
 # CSV column indices (0-based) per your screenshot
 BARCODE_KEY_COL       = 0  # Column A, e.g., '0101'
-SAMPLE_PRIMARY_COL    = 3  # Column D, e.g., 'Moderna2Large'
+SAMPLE_PRIMARY_COL    = 3  # Column D, e.g., 'M2Large'
 SAMPLE_SECONDARY_COL  = 4  # Column E, e.g., 'sq104411_1'
 
 # Vector sequence column (used to extract upstream/downstream reference flanks)
